@@ -1,5 +1,15 @@
 import os
-import getch
+import platform
+
+def getch():
+    system_platform = platform.system()
+    
+    if system_platform == "Windows":
+        import msvcrt
+        return msvcrt.getch().decode('utf-8')
+    elif system_platform == "Linux" or system_platform == "Darwin":  # Unix platforms
+        import getch
+        return getch.getch()
 
 class Tile:
     def __init__(self, is_square=False, has_wall=False):
@@ -7,7 +17,7 @@ class Tile:
         self.has_wall = has_wall
 
 class GameBoard:
-    def __init__(self, size=13):
+    def __init__(self, size=17):
         self.board = [[Tile(j % 2 == 0 and i % 2 == 0) for i in range(size)] for j in range(size)]
         self.size = size
 
@@ -63,13 +73,13 @@ class Controller:
     
     def get_move(self, player_turn):
         print(f"Player {player_turn} enter your move (wasd)")
-        return getch.getch()
+        return getch()
     
     def apply_move(self, move, turn):
         dx, dy = self.char_to_delta[move]
         cx, cy = self.player_positions[turn]
         nx, ny = dx + cx, dy + cy
-        if 0 <= nx < 13 and 0 <= ny < 13:
+        if 0 <= nx < 17 and 0 <= ny < 17:
             self.player_positions[turn] = (nx, ny) 
     
 c = Controller()

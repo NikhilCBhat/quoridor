@@ -1,0 +1,65 @@
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  flex-direction: column;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(17, min-content); /* Adjust column sizing */
+  gap: 1px;
+}
+
+.grid-row {
+  display: contents; /* Change from 'flex' to 'contents' */
+}
+
+.grid-cell {
+  width: 50px; /* Adjust cell size as needed */
+  height: 50px; /* Adjust cell size as needed */
+  border: 1px solid #ccc; /* Adjust cell border color as needed */
+  background-color: black;
+  transition: background-color 0.5s ease;
+}
+
+.odd-row .grid-cell,
+.grid-row:nth-child(odd) .odd-column {
+  background-color: crimson; /* Set the color for odd rows and odd columns */
+}
+
+.odd-row .grid-cell {
+  height: 15px; /* Set the height for odd rows */
+}
+
+.odd-column .grid-cell,
+.grid-row .grid-cell:nth-child(even) {
+  width: 15px; /* Set the width for odd columns */
+}
+
+.odd-column .grid-cell:hover,
+.grid-row .grid-cell:nth-child(even):hover {
+  animation: flash 2s infinite; /* Flash animation on hover */
+}
+
+.odd-row .grid-cell:hover {
+  animation: flash 2s infinite; /* Flash animation on hover for odd rows */
+}
+
+.clicked {
+  background-color: yellow;
+}
+
+@keyframes flash {
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: gray;
+  }
+  100% {
+    background-color: white;
+  }
+}
